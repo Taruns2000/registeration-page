@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      color: #555;
+    }
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <marquee behavior="scroll" direction="right"   bgcolor="red" >Registration Form </marquee>
+  <div class="container">
+    <h2>Registration form for postgraduation</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="fatherName">Father's Name</label>
+        <input type="text" id="fatherName" name="fatherName" required>
+      </div>
+      <div>
+        <label for="motherName">Mother's Name</label>
+        <input type="text" id="motherName" name="motherName" required>
+      </div>
+      <div>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" required>
+      </div>
+      <div>
+        <label for="Email">Email</label>
+        <input type="text" id="Email" name="Email" required>
+      </div>
+      <div>
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+      </div>
+      <div>
+        <label for="University name">University name</label>
+         <input type="text" id="University name ">
+      </div>
+      <div>
+        <label for="University Roll no">Roll no</label>
+         <input type="text" id="University Roll no ">
+      </div>
+      <div>
+        <label for="Class 10th marks">Class 10th marks</label>
+         <input type="text" id="Class 10th marks" >
+      </div>
+      <div>
+        <label for="Class 12th marks">Class 12th marks</label>
+         <input type="text" id="Class 12th marks ">
+      </div>
+      <div>
+        <label for="Graduation marks">Graduation marks</label>
+         <input type="text" id="Graduation marks ">
+      </div>
+      
+      <div>
+        <input type="submit" value="Register">
+      </div>
+     
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      var name = document.getElementById("name").value;
+      var fatherName = document.getElementById("fatherName").value;
+      var motherName = document.getElementById("motherName").value;
+      var address = document.getElementById("address").value;
+      var dob = document.getElementById("dob").value;
+      var Email = document.getElementById("Email-id").value;
+
+      
+      if (name === "" || fatherName === "" || motherName === "" || address === "" || dob === ""
+      ||Email-Id === "") {
+        alert("Please fill out all fields.");
+        return false;
+      }
+
+      
+      var dobRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dob.match(dobRegex)) {
+        alert("Please enter a valid date of birth (YYYY-MM-DD).");
+        return false;
+      }
+
+      
+      alert("Registration Successful!");
+      return true;
+      // Import required modules
+const express = require('express');
+const bodyParser = require('body-parser');
+const { MongoClient } = require('mongodb');
+
+// Set up express app
+const app = express();
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// MongoDB configuration
+const mongoURI = 'mongodb://localhost:27017'; // Change this to your MongoDB URI
+const dbName = 'mydatabase'; // Change this to your database name
+const collectionName = 'users'; // Change this to your collection name
+
+// Connect to MongoDB
+MongoClient.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(client => {
+        console.log('Connected to MongoDB');
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+
+        // Routes
+        app.post('/register', (req, res) => {
+            const newUser = {
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
+            };
+
+            // Insert user into MongoDB
+            collection.insertOne(newUser, (err, result) => {
+                if (err) {
+                    console.error('Error inserting user:', err);
+                    res.status(500).send('Error registering user');
+                } else {
+                    console.log('User registered successfully');
+                    res.status(200).send('User registered successfully');
+                }
+            });
+        });
+    })
+    .catch(err => console.error('Error connecting to MongoDB:', err));
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+
+});
+
+    }
+  </script>
+</body>
+</html>
